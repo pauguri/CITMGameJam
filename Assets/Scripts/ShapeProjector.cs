@@ -7,7 +7,8 @@ public class ShapeProjector : MonoBehaviour
     [SerializeField] private GameObject[] projectionReceivers = null;
     [SerializeField] private int projectionLayer = 1;
     [Space]
-    [SerializeField] private float matchTolerance = 0.1f;
+    [SerializeField] private float positionTolerance = 0.1f;
+    [SerializeField] private float rotationTolerance = 20f;
     [SerializeField] private GameObject goalObject;
     private bool isMatched = false;
 
@@ -52,7 +53,13 @@ public class ShapeProjector : MonoBehaviour
         {
             return;
         }
-        if (Vector3.Distance(new Vector3(player.position.x, 0, player.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < matchTolerance)
+
+        bool positionMatch = Vector3.Distance(new Vector3(player.position.x, 0, player.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < positionTolerance;
+        bool rotationMatch = Vector3.Angle(player.forward, transform.forward) < rotationTolerance;
+
+        Debug.Log("Position Match: " + positionMatch + " Rotation Match: " + rotationMatch);
+
+        if (positionMatch && rotationMatch)
         {
             foreach (GameObject receiver in projectionReceivers)
             {
