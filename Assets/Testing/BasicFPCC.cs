@@ -31,6 +31,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using System;
 
 #if UNITY_EDITOR // only required if using the Menu Item function at the end of this script
 using UnityEditor; 
@@ -55,19 +57,7 @@ public class BasicFPCC : MonoBehaviour
     [Tooltip("optional capsule to visualize player in scene view")]
     public Transform playerGFX;                                // optional capsule graphic object
     
-    [Header("Inputs")]
-    [Tooltip("Disable if sending inputs from an external script")]
-    public bool useLocalInputs = true;
     [Space(5)]
-    public string axisLookHorzizontal = "Mouse X";             // Mouse to Look
-    public string axisLookVertical    = "Mouse Y";             // 
-    public string axisMoveHorzizontal = "Horizontal";          // WASD to Move
-    public string axisMoveVertical    = "Vertical";            // 
-    public KeyCode keyRun             = KeyCode.LeftShift;     // Left Shift to Run
-    public KeyCode keyCrouch          = KeyCode.LeftControl;   // Left Control to Crouch
-    public KeyCode keyJump            = KeyCode.Space;         // Space to Jump
-    public KeyCode keySlide           = KeyCode.F;             // F to Slide (only when running)
-    public KeyCode keyToggleCursor    = KeyCode.BackQuote;     // ` to toggle lock cursor (aka [~] console key)
 
     // Input Variables that can be assigned externally
     // the cursor can also be manually locked or freed by calling the public void SetLockCursor( bool doLock )
@@ -82,8 +72,8 @@ public class BasicFPCC : MonoBehaviour
     [HideInInspector] public bool inputKeyDownCursor = false;  // is key Pressed
     
     [Header("Look Settings")]
-    public float mouseSensitivityX = 2f;             // speed factor of look X
-    public float mouseSensitivityY = 2f;             // speed factor of look Y
+    public float mouseSensitivityX = 1f;             // speed factor of look X
+    public float mouseSensitivityY = 1f;             // speed factor of look Y
     [Tooltip("larger values for less filtering, more responsiveness")]
     public float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
     public bool invertLookY = false;                 // toggle invert look Y
@@ -154,7 +144,6 @@ public class BasicFPCC : MonoBehaviour
 
     void Update()
     {
-        ProcessInputs();
         ProcessLook();
         ProcessMovement();
     }
@@ -177,28 +166,14 @@ public class BasicFPCC : MonoBehaviour
         RefreshCursor();
     }
 
-    void ProcessInputs()
+    public void onMove(InputAction.CallbackContext context)
     {
-        if ( useLocalInputs )
-        {
-            inputLookX = Input.GetAxis( axisLookHorzizontal );
-            inputLookY = Input.GetAxis( axisLookVertical );
+         inputMoveX = context.ReadValue<Vector2>().x; inputMoveY = context.ReadValue<Vector2>().y; 
+    }
 
-            inputMoveX = Input.GetAxis( axisMoveHorzizontal );
-            inputMoveY = Input.GetAxis( axisMoveVertical );
-
-            inputKeyRun        = Input.GetKey( keyRun );
-            inputKeyCrouch     = Input.GetKey( keyCrouch );
-
-            inputKeyDownJump   = Input.GetKeyDown( keyJump );
-            inputKeyDownSlide  = Input.GetKeyDown( keySlide );
-            inputKeyDownCursor = Input.GetKeyDown( keyToggleCursor );
-        }
-
-        if ( inputKeyDownCursor )
-        {
-            ToggleLockCursor();
-        }
+    public void onLook(InputAction.CallbackContext context)
+    {
+        inputLookX = context.ReadValue<Vector2>().x; inputLookY = context.ReadValue<Vector2>().y; 
     }
 
     void ProcessLook()
@@ -343,51 +318,51 @@ public class BasicFPCC : MonoBehaviour
 
         // smooth speed
         float speed;
-        
-        if ( isGrounded )
+
+        if (isGrounded)
         {
-            if ( isSlipping ) // slip down slope
+            if (isSlipping) // slip down slope
             {
                 // movement left/right while slipping down
                 // player rotation to slope
-                Vector3 slopeRight = Quaternion.LookRotation( Vector3.right ) * groundSlopeDir;
-                float dot = Vector3.Dot( slopeRight, playerTx.right );
+                Vector3 slopeRight = Quaternion.LookRotation(Vector3.right) * groundSlopeDir;
+                float dot = Vector3.Dot(slopeRight, playerTx.right);
                 // move on X axis, with Y rotation relative to slopeDir
-                move = slopeRight * ( dot > 0 ? inputMoveX : -inputMoveX );
+                move = slopeRight * (dot > 0 ? inputMoveX : -inputMoveX);
 
                 // speed
-                nextSpeed = Mathf.Lerp( currSpeed, runSpeed, 5f * Time.deltaTime );
+                nextSpeed = Mathf.Lerp(currSpeed, runSpeed, 5f * Time.deltaTime);
 
                 // increase angular gravity
                 float mag = fauxGravity.magnitude;
-                calc = Vector3.Slerp( fauxGravity, groundSlopeDir * runSpeed, 4f * Time.deltaTime );
+                calc = Vector3.Slerp(fauxGravity, groundSlopeDir * runSpeed, 4f * Time.deltaTime);
                 fauxGravity = calc.normalized * mag;
             }
-            else
-            {
-                // reset angular fauxGravity movement
-                fauxGravity.x = 0;
-                fauxGravity.z = 0;
+            //    else
+            //    {
+            //        // reset angular fauxGravity movement
+            //        fauxGravity.x = 0;
+            //        fauxGravity.z = 0;
 
-                if ( fauxGravity.y < 0 ) // constant grounded gravity
-                {
-                    //fauxGravity.y = -1f;
-                    fauxGravity.y = Mathf.Lerp( fauxGravity.y, -1f, 4f * Time.deltaTime );
-                }
-            }
+            //        if ( fauxGravity.y < 0 ) // constant grounded gravity
+            //        {
+            //            //fauxGravity.y = -1f;
+            //            fauxGravity.y = Mathf.Lerp( fauxGravity.y, -1f, 4f * Time.deltaTime );
+            //        }
+            //    }
 
-            // - Jump -
-            if ( !isSliding && !isCeiling && inputKeyDownJump ) // jump
-            {
-                fauxGravity.y = Mathf.Sqrt( jumpHeight * -2f * gravity );
-            }
+            //    // - Jump -
+            //    if ( !isSliding && !isCeiling && inputKeyDownJump ) // jump
+            //    {
+            //        fauxGravity.y = Mathf.Sqrt( jumpHeight * -2f * gravity );
+            //    }
 
-            // --
+            //    // --
 
-            // - smooth speed -
+            //    // - smooth speed -
             // take less time to slow down, more time speed up
-            float lerpFactor = ( lastSpeed > nextSpeed ? 4f : 2f );
-            speed = Mathf.Lerp( lastSpeed, nextSpeed, lerpFactor * Time.deltaTime );
+            float lerpFactor = (lastSpeed > nextSpeed ? 4f : 2f);
+        speed = Mathf.Lerp(lastSpeed, nextSpeed, lerpFactor * Time.deltaTime);
         }
         else // no friction, speed changes slower
         {
@@ -395,23 +370,23 @@ public class BasicFPCC : MonoBehaviour
         }
 
         // prevent floating if jumping into a ceiling
-        if ( isCeiling )
-        {
-            speed = crouchSpeed; // clamp speed to crouched
+        //if ( isCeiling )
+        //{
+        //    speed = crouchSpeed; // clamp speed to crouched
 
-            if ( fauxGravity.y > 0 )
-            {
-                fauxGravity.y = -1f; // 0;
-            }
-        }
+        //    if ( fauxGravity.y > 0 )
+        //    {
+        //        fauxGravity.y = -1f; // 0;
+        //    }
+        //}
 
         lastSpeed = speed; // update reference
 
         // - Add Gravity -
 
         fauxGravity.y += gravity * Time.deltaTime;
-        
-        // - Move -
+
+         //- Move -
 
         calc = move * speed * Time.deltaTime;
         calc += fauxGravity * Time.deltaTime;
