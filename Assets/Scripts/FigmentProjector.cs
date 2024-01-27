@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FigmentProjector : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class FigmentProjector : MonoBehaviour
     [Space]
     [SerializeField] private float positionTolerance = 0.1f;
     [SerializeField] private float rotationTolerance = 20f;
-    [SerializeField] private GameObject goalObject;
+    [SerializeField] private UnityEvent onMatch;
     [SerializeField] private CanvasGroup confirmCanvas;
     private bool isMatched = false;
     private bool canConfirm = false;
@@ -66,12 +67,18 @@ public class FigmentProjector : MonoBehaviour
 
         if (positionMatch && rotationMatch)
         {
-            confirmCanvas.DOFade(1f, 0.5f);
+            if (confirmCanvas != null)
+            {
+                confirmCanvas.DOFade(1f, 0.5f);
+            }
             canConfirm = true;
         }
         else
         {
-            confirmCanvas.DOFade(0f, 0.5f);
+            if (confirmCanvas != null)
+            {
+                confirmCanvas.DOFade(0f, 0.5f);
+            }
             canConfirm = false;
         }
     }
@@ -87,9 +94,12 @@ public class FigmentProjector : MonoBehaviour
         {
             receiver.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_ShowProjection" + projectionLayer, 0f);
         }
-        goalObject.SetActive(true);
-        confirmCanvas.DOFade(0f, 0.5f);
+        if (confirmCanvas != null)
+        {
+            confirmCanvas.DOFade(0f, 0.5f);
+        }
         player.OnConfirmClick -= TryConfirmFigment;
+        onMatch.Invoke();
         canConfirm = false;
         isMatched = true;
     }

@@ -415,7 +415,7 @@ Shader "Custom/LitProjection"
                 float useDefaultColor = 1;
 
                 if(_ShowProjection1 > 0) {
-                    float2 ndc = float2(input.projectionMatrix1.x/input.projectionMatrix1.w, input.projectionMatrix1.y/input.projectionMatrix1.w);
+                    float2 ndc = float2(-input.projectionMatrix1.x/input.projectionMatrix1.w / 1.6666f, -input.projectionMatrix1.y/input.projectionMatrix1.w / 1.6666f);
                     float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
                     float facing = dot(input.worldNormal, _ViewDirection1);
                     color = tex2D( _ProjectedTex1, projectedUv );
@@ -426,7 +426,7 @@ Shader "Custom/LitProjection"
                     }
                 }
                 if(_ShowProjection2 > 0) {
-                    float2 ndc = float2(input.projectionMatrix2.x/input.projectionMatrix2.w, input.projectionMatrix2.y/input.projectionMatrix2.w);
+                    float2 ndc = float2(-input.projectionMatrix2.x/input.projectionMatrix2.w, -input.projectionMatrix2.y/input.projectionMatrix2.w);
                     float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
                     float facing = dot(input.worldNormal, _ViewDirection2);
                     color = tex2D( _ProjectedTex2, projectedUv );
@@ -437,7 +437,7 @@ Shader "Custom/LitProjection"
                     }
                 }
                 if(_ShowProjection3 > 0) {
-					float2 ndc = float2(input.projectionMatrix3.x/input.projectionMatrix3.w, input.projectionMatrix3.y/input.projectionMatrix3.w);
+					float2 ndc = float2(-input.projectionMatrix3.x/input.projectionMatrix3.w, -input.projectionMatrix3.y/input.projectionMatrix3.w);
 					float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
 					float facing = dot(input.worldNormal, _ViewDirection3);
 					color = tex2D( _ProjectedTex3, projectedUv );
@@ -448,7 +448,7 @@ Shader "Custom/LitProjection"
 					}
 				}
                 if(_ShowProjection4 > 0) {
-				    float2 ndc = float2(input.projectionMatrix4.x/input.projectionMatrix4.w, input.projectionMatrix4.y/input.projectionMatrix4.w);
+				    float2 ndc = float2(-input.projectionMatrix4.x/input.projectionMatrix4.w, -input.projectionMatrix4.y/input.projectionMatrix4.w);
                     float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
                     float facing = dot(input.worldNormal, _ViewDirection4);
                     color = tex2D( _ProjectedTex4, projectedUv );
@@ -459,7 +459,7 @@ Shader "Custom/LitProjection"
                     }
                 }
                 if(_ShowProjection5 > 0) {
-					float2 ndc = float2(input.projectionMatrix5.x/input.projectionMatrix5.w, input.projectionMatrix5.y/input.projectionMatrix5.w);
+					float2 ndc = float2(-input.projectionMatrix5.x/input.projectionMatrix5.w, -input.projectionMatrix5.y/input.projectionMatrix5.w);
 					float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
 					float facing = dot(input.worldNormal, _ViewDirection5);
 					color = tex2D( _ProjectedTex5, projectedUv );
