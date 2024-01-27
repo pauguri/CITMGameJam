@@ -149,10 +149,30 @@ Shader "Custom/LitProjection"
 // LitForwardPass.hlsl include
 
 // PROJECTION PROPERTIES
-            uniform sampler2D _ProjectedTex;
-            uniform float3 _ViewDirection;
-            uniform float4x4 _ProjectionMatrix;
-            uniform float _Angle;
+            float _ShowProjection1;
+            uniform sampler2D _ProjectedTex1;
+            uniform float3 _ViewDirection1;
+            uniform float4x4 _ProjectionMatrix1;
+
+            float _ShowProjection2;
+            uniform sampler2D _ProjectedTex2;
+            uniform float3 _ViewDirection2;
+            uniform float4x4 _ProjectionMatrix2;
+
+            float _ShowProjection3;
+            uniform sampler2D _ProjectedTex3;
+			uniform float3 _ViewDirection3;
+            uniform float4x4 _ProjectionMatrix3;
+
+            float _ShowProjection4;
+            uniform sampler2D _ProjectedTex4;
+			uniform float3 _ViewDirection4;
+            uniform float4x4 _ProjectionMatrix4;
+
+            float _ShowProjection5;
+            uniform sampler2D _ProjectedTex5;
+			uniform float3 _ViewDirection5;
+            uniform float4x4 _ProjectionMatrix5;
 
             #ifndef UNIVERSAL_FORWARD_LIT_PASS_INCLUDED
             #define UNIVERSAL_FORWARD_LIT_PASS_INCLUDED
@@ -218,8 +238,12 @@ Shader "Custom/LitProjection"
                 UNITY_VERTEX_INPUT_INSTANCE_ID
                 UNITY_VERTEX_OUTPUT_STEREO
 // PROJECTION MATRIX
-                float4 projectionMatrix 	   : TEXCOORD10;
-                float3 worldNormal			  : TEXCOORD11;
+				float3 worldNormal : TEXCOORD10;
+				float4 projectionMatrix1 : TEXCOORD11;
+                float4 projectionMatrix2 : TEXCOORD12;
+                float4 projectionMatrix3 : TEXCOORD13;
+                float4 projectionMatrix4 : TEXCOORD14;
+                float4 projectionMatrix5 : TEXCOORD15;
             };
 
             void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData)
@@ -349,7 +373,11 @@ Shader "Custom/LitProjection"
                 output.positionCS = vertexInput.positionCS;
 
 // PROJECTION
-                output.projectionMatrix = mul( mul( unity_ObjectToWorld, float4(input.positionOS.xyz, 1)), _ProjectionMatrix );
+                output.projectionMatrix1 = mul( mul( unity_ObjectToWorld, float4(input.positionOS.xyz, 1)), _ProjectionMatrix1 );
+                output.projectionMatrix2 = mul( mul( unity_ObjectToWorld, float4(input.positionOS.xyz, 1)), _ProjectionMatrix2 );
+                output.projectionMatrix3 = mul( mul( unity_ObjectToWorld, float4(input.positionOS.xyz, 1)), _ProjectionMatrix3 );
+                output.projectionMatrix4 = mul( mul( unity_ObjectToWorld, float4(input.positionOS.xyz, 1)), _ProjectionMatrix4 );
+                output.projectionMatrix5 = mul( mul( unity_ObjectToWorld, float4(input.positionOS.xyz, 1)), _ProjectionMatrix5 );
                 output.worldNormal = input.normalOS;
 
                 return output;
@@ -382,23 +410,67 @@ Shader "Custom/LitProjection"
                 ApplyDecalToSurfaceData(input.positionCS, surfaceData, inputData);
             #endif
 
-                
-
 // PROJECTION
-                float2 ndc = float2(input.projectionMatrix.x/input.projectionMatrix.w, input.projectionMatrix.y/input.projectionMatrix.w);
-                float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
- 
-                float theta = _Angle*3.14159/ 180;
-                float2x2 matRot = float2x2( cos(theta), sin(theta),
-                                            -sin(theta), cos(theta) );
-                projectedUv = mul( projectedUv, matRot);
+                half4 color;
+                float useDefaultColor = 1;
 
-                float facing = dot(input.worldNormal, _ViewDirection);
- 
-                half4 color = tex2D( _ProjectedTex, projectedUv );
-                if( facing > 0 || projectedUv.x < 0 || projectedUv.y < 0 ||
-                    projectedUv.x > 1  || projectedUv.y > 1 || color.a <= 0.00f )
-                {
+                if(_ShowProjection1 > 0) {
+                    float2 ndc = float2(input.projectionMatrix1.x/input.projectionMatrix1.w, input.projectionMatrix1.y/input.projectionMatrix1.w);
+                    float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
+                    float facing = dot(input.worldNormal, _ViewDirection1);
+                    color = tex2D( _ProjectedTex1, projectedUv );
+                    if( facing <= 0 && projectedUv.x > 0 && projectedUv.y > 0 &&
+                        projectedUv.x < 1 && projectedUv.y < 1 && color.a > 0.00f )
+                    {
+                        useDefaultColor = 0;
+                    }
+                }
+                if(_ShowProjection2 > 0) {
+                    float2 ndc = float2(input.projectionMatrix2.x/input.projectionMatrix2.w, input.projectionMatrix2.y/input.projectionMatrix2.w);
+                    float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
+                    float facing = dot(input.worldNormal, _ViewDirection2);
+                    color = tex2D( _ProjectedTex2, projectedUv );
+                    if( facing <= 0 && projectedUv.x > 0 && projectedUv.y > 0 &&
+                        projectedUv.x < 1 && projectedUv.y < 1 && color.a > 0.00f )
+                    {
+                        useDefaultColor = 0;
+                    }
+                }
+                if(_ShowProjection3 > 0) {
+					float2 ndc = float2(input.projectionMatrix3.x/input.projectionMatrix3.w, input.projectionMatrix3.y/input.projectionMatrix3.w);
+					float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
+					float facing = dot(input.worldNormal, _ViewDirection3);
+					color = tex2D( _ProjectedTex3, projectedUv );
+					if( facing <= 0 && projectedUv.x > 0 && projectedUv.y > 0 &&
+						projectedUv.x < 1 && projectedUv.y < 1 && color.a > 0.00f )
+					{
+						useDefaultColor = 0;
+					}
+				}
+                if(_ShowProjection4 > 0) {
+				    float2 ndc = float2(input.projectionMatrix4.x/input.projectionMatrix4.w, input.projectionMatrix4.y/input.projectionMatrix4.w);
+                    float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
+                    float facing = dot(input.worldNormal, _ViewDirection4);
+                    color = tex2D( _ProjectedTex4, projectedUv );
+                    if( facing <= 0 && projectedUv.x > 0 && projectedUv.y > 0 &&
+                    projectedUv.x < 1 && projectedUv.y < 1 && color.a > 0.00f )
+                    {
+                        useDefaultColor = 0;
+                    }
+                }
+                if(_ShowProjection5 > 0) {
+					float2 ndc = float2(input.projectionMatrix5.x/input.projectionMatrix5.w, input.projectionMatrix5.y/input.projectionMatrix5.w);
+					float2 projectedUv = (1 + float2( ndc.x, ndc.y)) * 0.5;
+					float facing = dot(input.worldNormal, _ViewDirection5);
+					color = tex2D( _ProjectedTex5, projectedUv );
+					if( facing <= 0 && projectedUv.x > 0 && projectedUv.y > 0 &&
+						projectedUv.x < 1 && projectedUv.y < 1 && color.a > 0.00f )
+					{
+						useDefaultColor = 0;
+					}
+				}
+
+                if(useDefaultColor == 1) {
                     color = UniversalFragmentPBR(inputData, surfaceData);
                     color.rgb = MixFog(color.rgb, inputData.fogCoord);
                     color.a = OutputAlpha(color.a, _Surface);

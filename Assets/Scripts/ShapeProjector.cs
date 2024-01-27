@@ -5,10 +5,11 @@ public class ShapeProjector : MonoBehaviour
     public Transform player;
     [SerializeField] private Texture projectionTexture = null;
     [SerializeField] private GameObject[] projectionReceivers = null;
-    [SerializeField] private float angle = 0.0f;
+    [SerializeField] private int projectionLayer = 1;
     [Space]
     [SerializeField] private float matchTolerance = 0.1f;
     [SerializeField] private GameObject goalObject;
+    private bool isMatched = false;
 
     void Start()
     {
@@ -38,19 +39,27 @@ public class ShapeProjector : MonoBehaviour
             {
                 continue;
             }
-            renderer.sharedMaterial.SetTexture("_ProjectedTex", projectionTexture);
-            renderer.sharedMaterial.SetVector("_ViewDirection", transform.forward);
-            renderer.sharedMaterial.SetMatrix("_ProjectionMatrix", viewProjMatrix);
-            renderer.sharedMaterial.SetFloat("_Angle", angle);
+            renderer.sharedMaterial.SetTexture("_ProjectedTex" + projectionLayer, projectionTexture);
+            renderer.sharedMaterial.SetVector("_ViewDirection" + projectionLayer, transform.forward);
+            renderer.sharedMaterial.SetMatrix("_ProjectionMatrix" + projectionLayer, viewProjMatrix);
+            renderer.sharedMaterial.SetFloat("_ShowProjection" + projectionLayer, 1f);
         }
     }
 
     void Update()
     {
+        if (isMatched)
+        {
+            return;
+        }
         if (Vector3.Distance(new Vector3(player.position.x, 0, player.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < matchTolerance)
         {
-            Debug.Log("Perspective matched!");
+            foreach (GameObject receiver in projectionReceivers)
+            {
+                receiver.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_ShowProjection" + projectionLayer, 0f);
+            }
             goalObject.SetActive(true);
+            isMatched = true;
         }
     }
 
