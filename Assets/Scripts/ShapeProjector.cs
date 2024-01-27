@@ -2,29 +2,20 @@ using UnityEngine;
 
 public class ShapeProjector : MonoBehaviour
 {
-    private new Camera camera;
-    public Texture ProjectionTexture = null;
-    public GameObject[] ProjectionReceivers = null;
-    public float Angle = 0.0f;
+    public Transform player;
+    [SerializeField] private Texture projectionTexture = null;
+    [SerializeField] private GameObject[] projectionReceivers = null;
+    [SerializeField] private float angle = 0.0f;
+    [Space]
+    [SerializeField] private float matchTolerance = 0.1f;
+    [SerializeField] private GameObject goalObject;
 
-    Vector4 Vec3ToVec4(Vector3 vec3, float w)
-    {
-        return new Vector4(vec3.x, vec3.y, vec3.z, w);
-    }
-
-    // Use this for initialization
     void Start()
     {
-        camera = Camera.main;
-    }
+        Camera camera = Camera.main;
 
-    // Update is called once per frame
-    void Update()
-    {
         Matrix4x4 matProj = Matrix4x4.Perspective(camera.fieldOfView, 1, camera.nearClipPlane, camera.farClipPlane);
-
-        Matrix4x4 matView = Matrix4x4.identity;
-        matView = Matrix4x4.TRS(Vector3.zero, transform.rotation, Vector3.one);
+        Matrix4x4 matView = Matrix4x4.TRS(Vector3.zero, transform.rotation, Vector3.one);
 
         float x = Vector3.Dot(transform.right, -transform.position);
         float y = Vector3.Dot(transform.up, -transform.position);
@@ -32,24 +23,34 @@ public class ShapeProjector : MonoBehaviour
 
         matView.SetRow(3, new Vector4(x, y, z, 1));
 
-        Matrix4x4 LightViewProjMatrix = matView * matProj;
+        Matrix4x4 viewProjMatrix = matView * matProj;
 
-        if (ProjectionReceivers == null || ProjectionReceivers.Length <= 0)
+        if (projectionReceivers == null || projectionReceivers.Length <= 0)
         {
             return;
         }
 
-        foreach (GameObject imageReceiver in ProjectionReceivers)
+        foreach (GameObject receiver in projectionReceivers)
         {
-            ProjectionTexture.wrapMode = TextureWrapMode.Clamp;
-            MeshRenderer renderer = imageReceiver.GetComponent<MeshRenderer>();
+            projectionTexture.wrapMode = TextureWrapMode.Clamp;
+            MeshRenderer renderer = receiver.GetComponent<MeshRenderer>();
             if (renderer == null)
             {
                 continue;
             }
-            renderer.sharedMaterial.SetTexture("_ShadowMap", ProjectionTexture);
-            renderer.sharedMaterial.SetMatrix("_ProjectionMatrix", LightViewProjMatrix);
-            renderer.sharedMaterial.SetFloat("_Angle", Angle);
+            renderer.sharedMaterial.SetTexture("_ProjectedTex", projectionTexture);
+            renderer.sharedMaterial.SetVector("_ViewDirection", transform.forward);
+            renderer.sharedMaterial.SetMatrix("_ProjectionMatrix", viewProjMatrix);
+            renderer.sharedMaterial.SetFloat("_Angle", angle);
+        }
+    }
+
+    void Update()
+    {
+        if (Vector3.Distance(new Vector3(player.position.x, 0, player.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < matchTolerance)
+        {
+            Debug.Log("Perspective matched!");
+            goalObject.SetActive(true);
         }
     }
 

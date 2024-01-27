@@ -1,7 +1,4 @@
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader"Unlit/ProjectionShader"
+Shader"Custom/UnlitProjection"
 {
     Properties
     {
@@ -42,7 +39,7 @@ Shader"Unlit/ProjectionShader"
             {
                 VertexOut OUT;
  
-                OUT.position =  UnityObjectToClipPos( position );
+                OUT.position =  UnityObjectToClipPos(position);
                 OUT.uv = uv;
                 OUT.proj = mul( mul( unity_ObjectToWorld, float4(position.xyz, 1)), _ProjectionMatrix );
  
@@ -71,12 +68,11 @@ Shader"Unlit/ProjectionShader"
                 if( uv.x < 0 || uv.y < 0 ||
                     uv.x > 1  || uv.y > 1 || c.a <= 0.00f )
                     {
-                    c = float4(0,0,1,0);
-//#ifdef USE_TEXTURE
-//                        c = tex2D(_MainTex, IN.uv);
-//#else
-//						c = _Color;
-//#endif
+#ifdef USE_TEXTURE
+                        c = tex2D(_MainTex, IN.uv);
+#else
+						c = _Color;
+#endif
                     }
  
                 OUT.color = c;
