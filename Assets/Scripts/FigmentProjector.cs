@@ -1,8 +1,9 @@
+using DG.Tweening;
 using UnityEngine;
 
-public class ShapeProjector : MonoBehaviour
+public class FigmentProjector : MonoBehaviour
 {
-    public Transform player;
+    public PlayerController player;
     [SerializeField] private Texture projectionTexture = null;
     [SerializeField] private GameObject[] projectionReceivers = null;
     [SerializeField] private int projectionLayer = 1;
@@ -10,7 +11,9 @@ public class ShapeProjector : MonoBehaviour
     [SerializeField] private float positionTolerance = 0.1f;
     [SerializeField] private float rotationTolerance = 20f;
     [SerializeField] private GameObject goalObject;
+    [SerializeField] private CanvasGroup confirmCanvas;
     private bool isMatched = false;
+    private bool canConfirm = false;
 
     void Start()
     {
@@ -45,6 +48,8 @@ public class ShapeProjector : MonoBehaviour
             renderer.sharedMaterial.SetMatrix("_ProjectionMatrix" + projectionLayer, viewProjMatrix);
             renderer.sharedMaterial.SetFloat("_ShowProjection" + projectionLayer, 1f);
         }
+
+        player.OnConfirmClick += TryConfirmFigment;
     }
 
     void Update()
@@ -54,27 +59,45 @@ public class ShapeProjector : MonoBehaviour
             return;
         }
 
-        bool positionMatch = Vector3.Distance(new Vector3(player.position.x, 0, player.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < positionTolerance;
-        bool rotationMatch = Vector3.Angle(player.forward, transform.forward) < rotationTolerance;
+        bool positionMatch = Vector3.Distance(new Vector3(player.transform.position.x, 0, player.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < positionTolerance;
+        bool rotationMatch = Vector3.Angle(player.transform.forward, transform.forward) < rotationTolerance;
 
         Debug.Log("Position Match: " + positionMatch + " Rotation Match: " + rotationMatch);
 
         if (positionMatch && rotationMatch)
         {
-            foreach (GameObject receiver in projectionReceivers)
-            {
-                receiver.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_ShowProjection" + projectionLayer, 0f);
-            }
-            goalObject.SetActive(true);
-            isMatched = true;
+            confirmCanvas.DOFade(1f, 0.5f);
+            canConfirm = true;
         }
+        else
+        {
+            confirmCanvas.DOFade(0f, 0.5f);
+            canConfirm = false;
+        }
+    }
+
+    void TryConfirmFigment()
+    {
+        if (!canConfirm)
+        {
+            return;
+        }
+
+        foreach (GameObject receiver in projectionReceivers)
+        {
+            receiver.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_ShowProjection" + projectionLayer, 0f);
+        }
+        goalObject.SetActive(true);
+        confirmCanvas.DOFade(0f, 0.5f);
+        player.OnConfirmClick -= TryConfirmFigment;
+        canConfirm = false;
+        isMatched = true;
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.matrix = transform.localToWorldMatrix;
-        //Gizmos.DrawLine(Vector3.zero, Vector3.forward * 100.0f);
         Gizmos.DrawFrustum(Vector3.zero, 60, 0.1f, 10f, 1);
     }
 }
