@@ -6,9 +6,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-#if UNITY_EDITOR // only required if using the Menu Item function at the end of this script
-#endif
-
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
