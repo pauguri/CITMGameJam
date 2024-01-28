@@ -445,7 +445,6 @@ GameObject:
   m_Component:
   - component: {fileID: 896884563}
   - component: {fileID: 896884566}
-  - component: {fileID: 896884565}
   - component: {fileID: 896884564}
   m_Layer: 0
   m_Name: ProjectorCamera
@@ -502,14 +501,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &896884565
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896884562}
-  m_Enabled: 1
 --- !u!20 &896884566
 Camera:
   m_ObjectHideFlags: 0
