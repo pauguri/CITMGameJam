@@ -113,10 +113,7 @@ public class FigmentProjector : MonoBehaviour
 
         player.toggleInput = false;
         Vector3 targetPosition = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
-        Sequence moveSequence = DOTween.Sequence();
-        moveSequence.Append(player.transform.DOMove(targetPosition, 0.5f));
-        moveSequence.Insert(0f, player.transform.DORotateQuaternion(transform.rotation, 0.5f));
-        moveSequence.AppendCallback(() =>
+        player.transform.DOMove(targetPosition, 0.5f).OnComplete(() =>
         {
             player.toggleInput = true;
             PerformMatch();

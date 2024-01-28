@@ -957,7 +957,7 @@ PrefabInstance:
     - target: {fileID: 229744138274862731, guid: dcc4ee3d46bfdcb49a3d36b41aa067d9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.594
+      value: -2.78
       objectReference: {fileID: 0}
     - target: {fileID: 229744138274862731, guid: dcc4ee3d46bfdcb49a3d36b41aa067d9,
         type: 3}
@@ -967,7 +967,7 @@ PrefabInstance:
     - target: {fileID: 229744138274862731, guid: dcc4ee3d46bfdcb49a3d36b41aa067d9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.165
+      value: -2.38
       objectReference: {fileID: 0}
     - target: {fileID: 229744138274862731, guid: dcc4ee3d46bfdcb49a3d36b41aa067d9,
         type: 3}
@@ -1255,7 +1255,8 @@ MonoBehaviour:
   - {fileID: 257350957}
   - {fileID: 713710513}
   projectionLayer: 1
-  positionTolerance: 0.5
+  positionFocusTolerance: 0.5
+  positionMatchTolerance: 0.2
   rotationTolerance: 20
   onMatch:
     m_PersistentCalls:
