@@ -48,9 +48,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _NoiseScale: 80
-    - _NoiseSpeed: 0.1
+    - _NoiseScale: 10000
+    - _NoiseSpeed: 0.0001
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
