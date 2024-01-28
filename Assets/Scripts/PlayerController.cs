@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
     [Space(5)]
     public bool cursorActive = false;                // cursor state
 
+    [SerializeField] public bool toggleInput = true;
     public Action OnConfirmClick;
 
     void Start()
@@ -131,16 +132,28 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!toggleInput)
+        {
+            return;
+        }
         inputMoveX = context.ReadValue<Vector2>().x; inputMoveY = context.ReadValue<Vector2>().y;
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        if (!toggleInput)
+        {
+            return;
+        }
         inputLookX = context.ReadValue<Vector2>().x; inputLookY = context.ReadValue<Vector2>().y;
     }
 
     public void OnConfirm(InputAction.CallbackContext context)
     {
+        if (!toggleInput)
+        {
+            return;
+        }
         if (context.started)
         {
             OnConfirmClick?.Invoke();

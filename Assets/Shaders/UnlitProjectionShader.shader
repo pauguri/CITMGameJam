@@ -10,7 +10,10 @@ Shader"Custom/UnlitProjection"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
+        ZWrite Off
+        Blend SrcAlpha OneMinusSrcAlpha
+        Cull front 
         LOD 200
  
         Pass
@@ -25,7 +28,6 @@ Shader"Custom/UnlitProjection"
             uniform sampler2D _MainTex;
             uniform sampler2D _ShadowMap;
             uniform float4x4 _ProjectionMatrix;
-            uniform float _Angle;
             uniform float4 _Color;
  
             struct VertexOut
@@ -57,11 +59,6 @@ Shader"Custom/UnlitProjection"
  
                 float2 ndc = float2(IN.proj.x/IN.proj.w, IN.proj.y/IN.proj.w);
                 float2 uv = (1 + float2( ndc.x, ndc.y)) * 0.5;
- 
-                float theta = _Angle*3.14159/ 180;
-                float2x2 matRot = float2x2( cos(theta), sin(theta),
-                                            -sin(theta), cos(theta) );
-                uv = mul( uv, matRot);
  
                 float4 c = tex2D( _ShadowMap, uv );
  
