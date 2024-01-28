@@ -41,7 +41,7 @@ public class StartMenu : MonoBehaviour
         if (enableStartInput && context.started)
         {
             startMenuCanvasGroup.DOKill();
-            TransitionManager.instance.TransitionToScene("MainScene");
+            TransitionManager.instance.TransitionToScene("Level1Scene");
         }
     }
 }

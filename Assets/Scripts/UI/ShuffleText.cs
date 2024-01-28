@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ShuffleText : MonoBehaviour
 {
-    [SerializeField] private float shuffleDelay = 0.1f;
+    [SerializeField] private float letterChangeDelay = 0.1f;
     private TextMeshProUGUI textComponent;
     private List<int> swappedChars = new List<int>();
     private List<int> unswappedChars = new List<int>();
@@ -59,15 +59,18 @@ public class ShuffleText : MonoBehaviour
         while (swappedChars.Count < textLength)
         {
             int indexToSwap = Random.Range(0, unswappedChars.Count);
-            char swappedWithChar = originalText[Random.Range(0, textLength)];
             char[] textArr = textComponent.text.ToCharArray();
+            char charToSwap = textArr[unswappedChars[indexToSwap]];
+
+            string originalTextWithoutChar = originalText.Replace(charToSwap.ToString(), "");
+            char swappedWithChar = originalTextWithoutChar[Random.Range(0, originalTextWithoutChar.Length)];
             textArr[unswappedChars[indexToSwap]] = swappedWithChar;
             textComponent.text = new string(textArr);
 
             swappedChars.Add(unswappedChars[indexToSwap]);
             unswappedChars.RemoveAt(indexToSwap);
 
-            yield return new WaitForSeconds(shuffleDelay);
+            yield return new WaitForSeconds(letterChangeDelay);
         }
     }
 
@@ -84,7 +87,7 @@ public class ShuffleText : MonoBehaviour
             unswappedChars.Add(swappedChars[indexToSwap]);
             swappedChars.RemoveAt(indexToSwap);
 
-            yield return new WaitForSeconds(shuffleDelay);
+            yield return new WaitForSeconds(letterChangeDelay);
         }
         textComponent.text = originalText;
     }
