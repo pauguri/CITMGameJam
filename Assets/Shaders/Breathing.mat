@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlitchMat
-  m_Shader: {fileID: -6465566751694194690, guid: ff49997ee73808048bea4c1be773b7b2,
+  m_Name: Breathing
+  m_Shader: {fileID: -6465566751694194690, guid: 125821bc632d90949979daef5cfa2105,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -35,15 +35,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GlitchStrength: 1
-    - _NoiseStrength: 50
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Speed: 3
     m_Colors:
-    - _Color: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0}
-    - _GlitchColor: {r: 0.07289069, g: 0.28885338, b: 0.735849, a: 0}
+    - _Max_MinValues: {r: 0, g: 0.1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &3142820474701722758
+--- !u!114 &1124478469872147064
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
