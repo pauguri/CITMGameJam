@@ -11,7 +11,7 @@ public class CustomButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler,
     private Button button;
     private bool interactable = false;
 
-    private void Start()
+    private void Awake()
     {
         button = GetComponent<Button>();
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
