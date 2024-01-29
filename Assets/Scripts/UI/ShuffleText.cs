@@ -15,6 +15,8 @@ public class ShuffleText : MonoBehaviour
     private Coroutine shuffleCR;
     private Coroutine unshuffleCR;
 
+    private bool burstInProgress = false;
+
     void Start()
     {
         textComponent = GetComponent<TextMeshProUGUI>();
@@ -56,6 +58,11 @@ public class ShuffleText : MonoBehaviour
 
     public void BurstShuffle(float delay)
     {
+        if (burstInProgress)
+        {
+            return;
+        }
+        burstInProgress = true;
         StartCoroutine(BurstShuffleCR(delay));
     }
 
@@ -64,6 +71,7 @@ public class ShuffleText : MonoBehaviour
         ToggleShuffle(true);
         yield return new WaitForSecondsRealtime(delay);
         ToggleShuffle(false);
+        burstInProgress = false;
     }
 
     IEnumerator Shuffle()

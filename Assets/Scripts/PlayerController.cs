@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        Debug.Log("PlayerController Awake");
         instance = this;
         playerInput = GetComponent<PlayerInput>();
     }

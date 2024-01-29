@@ -6,9 +6,12 @@ public class PauseMenu : MonoBehaviour
 {
     private CanvasGroup cg;
     [SerializeField] private CustomButton resumeButton;
-    [SerializeField] private CustomButton settingsButton;
+    //[SerializeField] private CustomButton settingsButton;
     [SerializeField] private CustomButton creditsButton;
     [SerializeField] private CustomButton exitButton;
+    [Space]
+    [SerializeField] private CanvasGroup creditsCanvasGroup;
+    [SerializeField] private CustomButton creditsBackButton;
 
     private bool isPaused = false;
 
@@ -16,15 +19,22 @@ public class PauseMenu : MonoBehaviour
     {
         cg = GetComponent<CanvasGroup>();
         cg.alpha = 0;
+        cg.interactable = false;
 
         resumeButton.Disable();
-        settingsButton.Disable();
+        //settingsButton.Disable();
         creditsButton.Disable();
         exitButton.Disable();
+
+        creditsCanvasGroup.alpha = 0;
+        creditsCanvasGroup.interactable = false;
+        creditsCanvasGroup.blocksRaycasts = false;
+        creditsBackButton.Disable();
     }
 
     private void OnEnable()
     {
+        Debug.Log("OnEnable");
         if (PlayerController.instance != null)
         {
             PlayerController.instance.OnPauseClick += Toggle;
@@ -39,7 +49,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void Toggle()
+    public void Toggle()
     {
         isPaused = !isPaused;
 
@@ -62,22 +72,24 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
 
         resumeButton.Enable();
-        settingsButton.Enable();
+        //settingsButton.Enable();
         creditsButton.Enable();
         exitButton.Enable();
 
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
+        cg.interactable = true;
         cg.DOFade(1f, 1f).SetUpdate(true);
 
         if (MenuManager.instance != null)
         {
-            MenuManager.instance.SetSelectedGameObject(settingsButton.gameObject);
+            MenuManager.instance.SetSelectedGameObject(resumeButton.gameObject);
         }
     }
 
     public void Hide()
     {
+        Debug.Log("Hide");
         if (PlayerController.instance == null)
         {
             return;
@@ -85,13 +97,25 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
 
         resumeButton.Disable();
-        settingsButton.Disable();
+        //settingsButton.Disable();
         creditsButton.Disable();
         exitButton.Disable();
 
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
-        cg.DOFade(0f, 1f);
+        cg.interactable = false;
+        cg.DOFade(0f, 1f).SetUpdate(true).OnComplete(() =>
+        {
+            creditsCanvasGroup.alpha = 0;
+            creditsCanvasGroup.interactable = false;
+            creditsCanvasGroup.blocksRaycasts = false;
+            creditsBackButton.Disable();
+
+            if (MenuManager.instance != null)
+            {
+                MenuManager.instance.SetSelectedGameObject(null);
+            }
+        });
     }
 
     public void ExitGame()
@@ -103,6 +127,32 @@ public class PauseMenu : MonoBehaviour
         else
         {
             Application.Quit();
+        }
+    }
+
+    public void ShowCredits()
+    {
+        creditsCanvasGroup.DOFade(1f, 1f).SetUpdate(true);
+        creditsCanvasGroup.interactable = true;
+        creditsCanvasGroup.blocksRaycasts = true;
+        creditsBackButton.Enable();
+
+        if (MenuManager.instance != null)
+        {
+            MenuManager.instance.SetSelectedGameObject(creditsBackButton.gameObject);
+        }
+    }
+
+    public void HideCredits()
+    {
+        creditsCanvasGroup.DOFade(0f, 1f).SetUpdate(true);
+        creditsCanvasGroup.interactable = false;
+        creditsCanvasGroup.blocksRaycasts = false;
+        creditsBackButton.Disable();
+
+        if (MenuManager.instance != null)
+        {
+            MenuManager.instance.SetSelectedGameObject(creditsButton.gameObject);
         }
     }
 }
