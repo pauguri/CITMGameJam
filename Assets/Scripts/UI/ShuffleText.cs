@@ -54,6 +54,18 @@ public class ShuffleText : MonoBehaviour
         }
     }
 
+    public void BurstShuffle(float delay)
+    {
+        StartCoroutine(BurstShuffleCR(delay));
+    }
+
+    IEnumerator BurstShuffleCR(float delay)
+    {
+        ToggleShuffle(true);
+        yield return new WaitForSeconds(delay);
+        ToggleShuffle(false);
+    }
+
     IEnumerator Shuffle()
     {
         while (swappedChars.Count < textLength)

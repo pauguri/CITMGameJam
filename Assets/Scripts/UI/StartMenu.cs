@@ -1,47 +1,48 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class StartMenu : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup logoCanvasGroup;
-    [SerializeField] private CanvasGroup startMenuCanvasGroup;
-    [SerializeField] private Animator eyelids;
-    private bool enableStartInput = false;
+    private CanvasGroup cg;
+    [SerializeField] private CustomButton startButton;
+    [SerializeField] private CustomButton exitButton;
 
     void Start()
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.AppendInterval(1f);
-        sequence.Append(logoCanvasGroup.DOFade(1f, 1f));
-        sequence.AppendInterval(2f);
-        sequence.AppendCallback(() =>
-        {
-            eyelids.SetTrigger("TriggerClose");
-        });
-
-        sequence.Play();
+        cg = GetComponent<CanvasGroup>();
+        cg.alpha = 0;
+        startButton.Disable();
+        exitButton.Disable();
     }
 
-    public void ShowStartMenu()
+    public void Show()
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.AppendInterval(1f);
-        sequence.Append(startMenuCanvasGroup.DOFade(1f, 1f));
-        sequence.AppendCallback(() =>
+        cg.DOFade(1f, 1f);
+        startButton.Enable();
+        exitButton.Enable();
+        if (MenuManager.instance != null)
         {
-            enableStartInput = true;
-        });
-
-        sequence.Play();
+            MenuManager.instance.SetSelectedGameObject(startButton.gameObject);
+        }
     }
 
-    public void OnConfirm(InputAction.CallbackContext context)
+    public void StartGame()
     {
-        if (enableStartInput && context.started)
+        startButton.Disable();
+        exitButton.Disable();
+        TransitionManager.instance.TransitionToScene("Level1Scene");
+    }
+
+    public void ExitGame()
+    {
+        if (MenuManager.instance != null)
         {
-            startMenuCanvasGroup.DOKill();
-            TransitionManager.instance.TransitionToScene("Level1Scene");
+            MenuManager.instance.ExitGame();
+        }
+        else
+        {
+            Application.Quit();
         }
     }
 }
