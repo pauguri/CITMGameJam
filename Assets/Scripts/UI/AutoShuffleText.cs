@@ -23,9 +23,9 @@ public class AutoShuffleText : ShuffleText
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(shuffleDelayMin, shuffleDelayMax));
+            yield return new WaitForSecondsRealtime(Random.Range(shuffleDelayMin, shuffleDelayMax));
             ToggleShuffle(true);
-            yield return new WaitForSeconds(unshuffleDelay);
+            yield return new WaitForSecondsRealtime(unshuffleDelay);
             ToggleShuffle(false);
         }
     }

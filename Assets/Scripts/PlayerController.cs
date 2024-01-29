@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] public bool toggleInput = true;
     public Action OnConfirmClick;
+    public Action OnPauseClick;
     public PlayerInput playerInput;
 
     public static PlayerController instance;
@@ -169,6 +170,14 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             OnConfirmClick?.Invoke();
+        }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            OnPauseClick?.Invoke();
         }
     }
 

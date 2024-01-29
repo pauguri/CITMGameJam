@@ -62,7 +62,7 @@ public class ShuffleText : MonoBehaviour
     IEnumerator BurstShuffleCR(float delay)
     {
         ToggleShuffle(true);
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         ToggleShuffle(false);
     }
 
@@ -82,7 +82,7 @@ public class ShuffleText : MonoBehaviour
             swappedChars.Add(unswappedChars[indexToSwap]);
             unswappedChars.RemoveAt(indexToSwap);
 
-            yield return new WaitForSeconds(letterChangeDelay);
+            yield return new WaitForSecondsRealtime(letterChangeDelay);
         }
     }
 
@@ -99,7 +99,7 @@ public class ShuffleText : MonoBehaviour
             unswappedChars.Add(swappedChars[indexToSwap]);
             swappedChars.RemoveAt(indexToSwap);
 
-            yield return new WaitForSeconds(letterChangeDelay);
+            yield return new WaitForSecondsRealtime(letterChangeDelay);
         }
         textComponent.text = originalText;
     }
