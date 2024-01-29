@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class LayerChangeTrigger : MonoBehaviour
 {
+    [SerializeField] GameObject[] children;
+
     public void ChangeLayer(int layer)
     {
         gameObject.layer = layer;
-        foreach (Transform child in transform)
+        foreach (GameObject child in children)
         {
-            child.gameObject.layer = layer;
+            child.layer = layer;
         }
     }
 }
