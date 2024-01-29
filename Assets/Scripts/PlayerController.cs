@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Layer Mask")]
@@ -97,6 +98,20 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] public bool toggleInput = true;
     public Action OnConfirmClick;
+    public PlayerInput playerInput;
+
+    public static PlayerController instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        playerInput = GetComponent<PlayerInput>();
+    }
 
     void Start()
     {
