@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class PauseMenu : MonoBehaviour
@@ -22,8 +21,6 @@ public class PauseMenu : MonoBehaviour
         settingsButton.Disable();
         creditsButton.Disable();
         exitButton.Disable();
-
-        settingsButton.GetComponent<Button>().onClick.AddListener(() => { Debug.Log("EEEEEE"); });
     }
 
     private void OnEnable()

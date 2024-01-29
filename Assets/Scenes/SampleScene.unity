@@ -1369,6 +1369,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7476666291365639134, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476666291365639134, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476666291365639134, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476666291365639134, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7476666291681211077, guid: dea7d3d40b0ab354eae30ef80fbac872,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1405,6 +1425,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7476666293390942644, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8219299517664980095, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8219299517664980095, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8219299517664980095, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8219299517664980095, guid: dea7d3d40b0ab354eae30ef80fbac872,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0

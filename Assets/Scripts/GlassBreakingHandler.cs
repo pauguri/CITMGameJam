@@ -1,27 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 
 public class GlassBreakingHandler : MonoBehaviour
 {
-    public string tag;
     public float time;
-    public ParticleSystem ps;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    public GameObject ps;
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
     public void BreakGlass()
     {
+        Instantiate(ps, transform.position, Quaternion.identity);
         Destroy(gameObject, time);
-        ps.Play();
     }
 }
