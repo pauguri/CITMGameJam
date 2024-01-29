@@ -34,7 +34,6 @@ public class PauseMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("OnEnable");
         if (PlayerController.instance != null)
         {
             PlayerController.instance.OnPauseClick += Toggle;
@@ -89,7 +88,6 @@ public class PauseMenu : MonoBehaviour
 
     public void Hide()
     {
-        Debug.Log("Hide");
         if (PlayerController.instance == null)
         {
             return;
