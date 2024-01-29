@@ -4,16 +4,19 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class CustomButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IDeselectHandler
+[RequireComponent(typeof(AudioSource))]
+public class CustomButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IDeselectHandler, IPointerDownHandler, ISubmitHandler
 {
     [SerializeField] private ShuffleText shuffleText;
     private TextMeshProUGUI buttonText;
     private Button button;
+    private AudioSource audioSource;
     private bool interactable = false;
 
     private void Awake()
     {
         button = GetComponent<Button>();
+        audioSource = GetComponent<AudioSource>();
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -59,5 +62,21 @@ public class CustomButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler,
     {
         interactable = true;
         button.interactable = true;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        PlaySound();
+    }
+
+    public void OnSubmit(BaseEventData eventData)
+    {
+        PlaySound();
+    }
+
+    void PlaySound()
+    {
+        audioSource.Stop();
+        audioSource.Play();
     }
 }
