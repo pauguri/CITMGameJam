@@ -37,6 +37,8 @@ public class FigmentProjector : MonoBehaviour
             return;
         }
 
+        //ProjectTexture();
+
         bool positionFocus = Vector3.Distance(new Vector3(player.transform.position.x, 0, player.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < positionFocusTolerance;
         bool rotationFocus = Vector3.Angle(cam.transform.forward, transform.forward) < rotationTolerance;
 
