@@ -6,6 +6,7 @@ public class DoorSequence : MonoBehaviour, ITriggerable
 {
     [SerializeField] private AudioSource doorOpenAudioSource;
     [SerializeField] private Animator doorAnimator;
+    [SerializeField] private AudioSource roomGlitchAudioSource;
     //[SerializeField] private ScaleByDistance roomScaler;
     [SerializeField] private float walkSpeed = 3f;
 
@@ -39,6 +40,7 @@ public class DoorSequence : MonoBehaviour, ITriggerable
         yield return new WaitForSeconds(1f);
         doorOpenAudioSource.Play();
         doorAnimator.SetTrigger("Open");
+        roomGlitchAudioSource.Play();
         //roomScaler.enableScaling = true;
     }
 

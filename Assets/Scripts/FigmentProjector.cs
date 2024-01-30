@@ -19,6 +19,7 @@ public class FigmentProjector : MonoBehaviour
 
     [Header("Sound")]
     [SerializeField] private AudioSource humAudioSource;
+    [SerializeField] private AudioSource figmentMatchAudioSource;
     [SerializeField] private float humVolume = 1f;
     [SerializeField] private float humRange = 4f;
 
@@ -134,6 +135,8 @@ public class FigmentProjector : MonoBehaviour
         isMatched = true;
         player.OnConfirmClick -= TryConfirmFigment;
 
+        figmentMatchAudioSource.Play();
+
         player.toggleInput = false;
         Vector3 targetPosition = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
         player.transform.DOMove(targetPosition, 0.5f).OnComplete(() =>
@@ -161,6 +164,7 @@ public class FigmentProjector : MonoBehaviour
         }
 
         humAudioSource.Stop();
+
         player.walkSpeed = originalWalkSpeed;
         onMatch.Invoke();
     }
