@@ -19,6 +19,8 @@ public class FigmentProjector : MonoBehaviour
 
     [Header("Sound")]
     [SerializeField] private AudioSource humAudioSource;
+    [SerializeField] private float humVolume = 1f;
+    [SerializeField] private float humRange = 4f;
 
     private bool isMatched = false;
     private bool canConfirm = false;
@@ -31,7 +33,6 @@ public class FigmentProjector : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        humAudioSource.volume = 0f;
         ProjectTexture();
     }
 
@@ -42,25 +43,25 @@ public class FigmentProjector : MonoBehaviour
             return;
         }
 
-        //ProjectTexture();
+        float distance = Vector3.Distance(new Vector3(player.transform.position.x, 0, player.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z));
+        float angle = Vector3.Angle(cam.transform.forward, transform.forward);
 
-        bool positionFocus = Vector3.Distance(new Vector3(player.transform.position.x, 0, player.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < positionFocusTolerance;
-        bool rotationFocus = Vector3.Angle(cam.transform.forward, transform.forward) < rotationTolerance;
+        if (humAudioSource.isPlaying)
+        {
+            //Debug.Log(angle);
+            float remappedDistance = distance.Remap(0f, humRange, 0.7f, 0f) * angle.Remap(0f, rotationTolerance, 1.4f, 1f);
+            Debug.Log("dist: " + distance.Remap(0f, humRange, 0.7f, 0f));
+            Debug.Log("angle: " + angle.Remap(0f, rotationTolerance, 1.4f, 1f));
+            humAudioSource.volume = Mathf.Lerp(0f, humVolume, remappedDistance);
+            humAudioSource.pitch = Mathf.Lerp(0.5f, 1f, remappedDistance);
+        }
+
+        bool positionFocus = distance < positionFocusTolerance;
+        bool rotationFocus = angle < rotationTolerance;
 
         if (positionFocus && rotationFocus)
         {
             player.walkSpeed = focusWalkSpeed;
-
-            if (!humAudioSource.isPlaying)
-            {
-                humAudioSource.volume = 0f;
-                humAudioSource.Play();
-                humAudioSource.DOFade(1f, 1f);
-            }
-            else
-            {
-                //humAudioSource.pitch = Mathf.Lerp(0.5f, 1.5f, player.walkSpeed / focusWalkSpeed);
-            }
 
             bool positionMatch = Vector3.Distance(new Vector3(player.transform.position.x, 0, player.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < positionMatchTolerance;
 
@@ -77,14 +78,6 @@ public class FigmentProjector : MonoBehaviour
         else
         {
             player.walkSpeed = originalWalkSpeed;
-
-            if (humAudioSource.isPlaying && humAudioSource.volume == 1f)
-            {
-                humAudioSource.DOFade(0f, 1f).OnComplete(() =>
-                {
-                    humAudioSource.Stop();
-                });
-            }
         }
 
         if (confirmCanvas != null && (confirmFadeOut == null || !confirmFadeOut.active))
@@ -156,6 +149,7 @@ public class FigmentProjector : MonoBehaviour
         Sequence camFovSequence = DOTween.Sequence();
         camFovSequence.Append(DOTween.To(() => cam.fieldOfView, x => cam.fieldOfView = x, originalFov - 5f, 0.1f));
         camFovSequence.Append(DOTween.To(() => cam.fieldOfView, x => cam.fieldOfView = x, originalFov, 0.5f));
+        camFovSequence.Play();
 
         foreach (GameObject receiver in projectionReceivers)
         {
@@ -166,6 +160,7 @@ public class FigmentProjector : MonoBehaviour
             confirmCanvas.DOFade(0f, 0.5f);
         }
 
+        humAudioSource.Stop();
         player.walkSpeed = originalWalkSpeed;
         onMatch.Invoke();
     }

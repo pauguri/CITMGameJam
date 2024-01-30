@@ -26,6 +26,11 @@ public class DoorSequence : MonoBehaviour, ITriggerable
         sequenceRunning = true;
 
         layerChange.ChangeLayer(newLayer);
+        if (PlayerController.instance != null)
+        {
+            PlayerController.instance.walkSpeed = walkSpeed;
+        }
+
         StartCoroutine(Sequence());
     }
 
@@ -35,11 +40,6 @@ public class DoorSequence : MonoBehaviour, ITriggerable
         doorOpenAudioSource.Play();
         doorAnimator.SetTrigger("Open");
         //roomScaler.enableScaling = true;
-
-        if (PlayerController.instance != null)
-        {
-            PlayerController.instance.walkSpeed = walkSpeed;
-        }
     }
 
     public void EnterTrigger()

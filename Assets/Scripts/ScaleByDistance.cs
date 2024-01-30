@@ -26,12 +26,9 @@ public class ScaleByDistance : MonoBehaviour
         }
 
         float distance = Vector3.Distance(reference.position, target.position);
-        float remappedDistance = Remap(distance, maxDistance, minDistance, 0f, 1f);
+        float remappedDistance = distance.Remap(maxDistance, minDistance, 0f, 1f);
         transform.localScale = Vector3.Lerp(initialScale, targetScale, remappedDistance);
     }
 
-    float Remap(float value, float from1, float to1, float from2, float to2)
-    {
-        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
-    }
+
 }

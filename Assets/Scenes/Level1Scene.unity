@@ -7047,6 +7047,8 @@ MonoBehaviour:
         m_CallState: 2
   confirmCanvas: {fileID: 406791153}
   humAudioSource: {fileID: 3382407490657834372}
+  humVolume: 1
+  humRange: 4
 --- !u!1 &3382407490657834369
 GameObject:
   m_ObjectHideFlags: 0
@@ -7093,7 +7095,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 143965772756119832, guid: 408c3f204c338ad449e0c55d4badf2a3,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 14609e10a9e9d324fa3ca49c21b1a211, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
@@ -7103,9 +7105,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.1
-  MaxDistance: 2
+  MaxDistance: 3
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -7138,7 +7140,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
