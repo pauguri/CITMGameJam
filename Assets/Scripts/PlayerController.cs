@@ -3,8 +3,10 @@
 // ------------------------------------------ 
 
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
@@ -96,10 +98,16 @@ public class PlayerController : MonoBehaviour
     [Space(5)]
     public bool cursorActive = false;                // cursor state
 
-    [SerializeField] public bool toggleInput = true;
-    public Action OnConfirmClick;
-    public Action OnPauseClick;
-    public PlayerInput playerInput;
+    [Header("Sound")]
+    [SerializeField] private AudioSource walkAudioSource;
+    [SerializeField] private AudioClip[] walkClips;
+    [SerializeField] private float walkStepDuration = 0.2f;
+    private Coroutine walkSoundCoroutine = null;
+
+    [HideInInspector] public bool toggleInput = true;
+    [HideInInspector] public Action OnConfirmClick;
+    [HideInInspector] public Action OnPauseClick;
+    [HideInInspector] public PlayerInput playerInput;
 
     public static PlayerController instance;
 
@@ -149,7 +157,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        inputMoveX = context.ReadValue<Vector2>().x; inputMoveY = context.ReadValue<Vector2>().y;
+        inputMoveX = context.ReadValue<Vector2>().x;
+        inputMoveY = context.ReadValue<Vector2>().y;
+
+        if ((inputMoveX != 0 || inputMoveY != 0) && walkSoundCoroutine == null)
+        {
+            walkSoundCoroutine = StartCoroutine(PlayWalkSound());
+        }
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -158,7 +172,8 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        inputLookX = context.ReadValue<Vector2>().x; inputLookY = context.ReadValue<Vector2>().y;
+        inputLookX = context.ReadValue<Vector2>().x;
+        inputLookY = context.ReadValue<Vector2>().y;
     }
 
     public void OnConfirm(InputAction.CallbackContext context)
@@ -474,6 +489,22 @@ public class PlayerController : MonoBehaviour
         // If you know how fast your character is trying to move,
         // then you can also multiply the push velocity by that.
         body.velocity = hit.moveDirection * lastSpeed;
+    }
+
+    // STEP SOUND
+    IEnumerator PlayWalkSound()
+    {
+        while (inputMoveX != 0 || inputMoveY != 0)
+        {
+            walkAudioSource.Stop();
+            walkAudioSource.clip = walkClips[Random.Range(0, walkClips.Length)];
+            walkAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            walkAudioSource.Play();
+
+            yield return new WaitForSeconds(walkStepDuration);
+        }
+
+        walkSoundCoroutine = null;
     }
 
     // Debug Gizmos
