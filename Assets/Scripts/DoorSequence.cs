@@ -6,6 +6,8 @@ public class DoorSequence : MonoBehaviour
 {
     [SerializeField] private AudioSource doorOpenAudioSource;
     [SerializeField] private Animator doorAnimator;
+    //[SerializeField] private ScaleByDistance roomScaler;
+    [SerializeField] private float walkSpeed = 3f;
 
     private LayerChangeTrigger layerChange;
     private bool sequenceRunning = false;
@@ -29,8 +31,25 @@ public class DoorSequence : MonoBehaviour
 
     IEnumerator Sequence()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         doorOpenAudioSource.Play();
         doorAnimator.SetTrigger("Open");
+        //roomScaler.enableScaling = true;
+
+        if (PlayerController.instance != null)
+        {
+            PlayerController.instance.walkSpeed = walkSpeed;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (TransitionManager.instance != null)
+            {
+                TransitionManager.instance.TransitionToSceneGlitch("Level2Scene");
+            }
+        }
     }
 }

@@ -30,11 +30,20 @@ public class TransitionManager : MonoBehaviour
     {
         overlay.DOFade(1f, 1f).OnComplete(() =>
         {
-            StartCoroutine(LoadScene(sceneName));
+            StartCoroutine(LoadScene(sceneName, 1f));
         });
     }
 
-    IEnumerator LoadScene(string sceneName)
+    public void TransitionToSceneGlitch(string sceneName)
+    {
+        // Todo: glitch effect
+        overlay.DOFade(1f, 0.2f).OnComplete(() =>
+        {
+            StartCoroutine(LoadScene(sceneName, 0.2f));
+        });
+    }
+
+    IEnumerator LoadScene(string sceneName, float fadeOut)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
@@ -42,6 +51,6 @@ public class TransitionManager : MonoBehaviour
             // loading screen?
             yield return null;
         }
-        overlay.DOFade(0f, 1f);
+        overlay.DOFade(0f, fadeOut);
     }
 }
