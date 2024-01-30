@@ -6,6 +6,7 @@ public class StartSequence : MonoBehaviour
     [SerializeField] private CanvasGroup logoCanvasGroup;
     [SerializeField] private Animator eyelids;
     [SerializeField] private StartMenu startMenu;
+    [SerializeField] private AudioSource musicSource;
 
     void Start()
     {
@@ -26,6 +27,10 @@ public class StartSequence : MonoBehaviour
         sequence.AppendInterval(1f);
         sequence.AppendCallback(() =>
         {
+            if (musicSource != null)
+            {
+                musicSource.Play();
+            }
             startMenu.Show();
         });
 
