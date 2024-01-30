@@ -71,6 +71,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147483647
   cameraTx: {fileID: 229744139832614010}
+  cameraComponent: {fileID: 229744139832614009}
   playerGFX: {fileID: 0}
   inputLookX: 0
   inputLookY: 0

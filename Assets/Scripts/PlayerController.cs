@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [Header("Main Camera")]
     [Tooltip("Drag the FPC Camera here")]
     public Transform cameraTx;                                 // Main Camera, as child of BasicFPCC object
+    public Camera cameraComponent;                             // Main Camera component
 
     [Header("Optional Player Graphic")]
     [Tooltip("optional capsule to visualize player in scene view")]

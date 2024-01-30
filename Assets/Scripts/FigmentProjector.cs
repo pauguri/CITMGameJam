@@ -4,12 +4,15 @@ using UnityEngine.Events;
 
 public class FigmentProjector : MonoBehaviour
 {
-    public PlayerController player;
-    [SerializeField] private float focusWalkSpeed = 2f;
     [SerializeField] private Texture projectionTexture = null;
     [SerializeField] private GameObject[] projectionReceivers = null;
     [SerializeField] private int projectionLayer = 1;
+
+    [SerializeField] private float fov = 60f;
+    [SerializeField] private float nearClipPlane = 0.3f;
+    [SerializeField] private float farClipPlane = 1000f;
     [Space]
+    [SerializeField] private float focusWalkSpeed = 2f;
     [SerializeField] private float positionFocusTolerance = 0.5f;
     [SerializeField] private float positionMatchTolerance = 0.2f;
     [SerializeField] private float rotationTolerance = 20f;
@@ -27,19 +30,29 @@ public class FigmentProjector : MonoBehaviour
     private bool canConfirm = false;
     private float originalWalkSpeed;
 
+    private PlayerController player;
     private Camera cam;
     private Tween confirmFadeIn;
     private Tween confirmFadeOut;
 
     void Start()
     {
-        cam = Camera.main;
+        if (PlayerController.instance != null)
+        {
+            player = PlayerController.instance;
+        }
         ProjectTexture();
     }
 
     void Update()
     {
-        if (isMatched)
+        if (isMatched || player == null)
+        {
+            return;
+        }
+
+        cam = player.cameraComponent;
+        if (cam == null)
         {
             return;
         }
@@ -88,7 +101,7 @@ public class FigmentProjector : MonoBehaviour
 
     void ProjectTexture()
     {
-        Matrix4x4 matProj = Matrix4x4.Perspective(cam.fieldOfView, 1, cam.nearClipPlane, cam.farClipPlane);
+        Matrix4x4 matProj = Matrix4x4.Perspective(fov, 1, nearClipPlane, farClipPlane);
         Matrix4x4 matView = Matrix4x4.TRS(Vector3.zero, transform.rotation, Vector3.one);
 
         float x = Vector3.Dot(transform.right, -transform.position);
