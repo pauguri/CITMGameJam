@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1007327701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11cb29a1a1901ca4f932aff959b6930a, type: 3}
   m_Name: 
@@ -6219,6 +6219,7 @@ GameObject:
   - component: {fileID: 919132148637800546}
   - component: {fileID: 919132148637800547}
   - component: {fileID: 919132148637800548}
+  - component: {fileID: 919132148637800549}
   m_Layer: 6
   m_Name: Porta
   m_TagString: Untagged
@@ -6260,8 +6261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorOpenAudioSource: {fileID: 919132148637800547}
   doorAnimator: {fileID: 919132148637800545}
-  roomScaler: {fileID: 1007327702}
-  walkSpeed: 3
+  walkSpeed: 1
 --- !u!82 &919132148637800547
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6370,8 +6370,24 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.3761218, y: 3.4585037, z: 1.8841004}
-  m_Center: {x: 0.011531711, y: 2.13033, z: -0.48048902}
+  m_Size: {x: 2.3761218, y: 3.4585037, z: 1.0766602}
+  m_Center: {x: 0.011531711, y: 2.13033, z: -0.076768875}
+--- !u!54 &919132148637800549
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148637800544}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &919132148712984411
 GameObject:
   m_ObjectHideFlags: 0

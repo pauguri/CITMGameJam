@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(LayerChangeTrigger))]
-public class DoorSequence : MonoBehaviour
+public class DoorSequence : MonoBehaviour, ITriggerable
 {
     [SerializeField] private AudioSource doorOpenAudioSource;
     [SerializeField] private Animator doorAnimator;
@@ -42,14 +42,12 @@ public class DoorSequence : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void EnterTrigger()
     {
-        if (other.CompareTag("Player"))
+        Debug.Log("Enter");
+        if (TransitionManager.instance != null)
         {
-            if (TransitionManager.instance != null)
-            {
-                TransitionManager.instance.TransitionToSceneGlitch("Level2Scene");
-            }
+            TransitionManager.instance.TransitionToSceneGlitch("Level2Scene");
         }
     }
 }
