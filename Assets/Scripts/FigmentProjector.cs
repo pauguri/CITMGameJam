@@ -7,7 +7,8 @@ public class FigmentProjector : MonoBehaviour
     [SerializeField] private Texture projectionTexture = null;
     [SerializeField] private GameObject[] projectionReceivers = null;
     [SerializeField] private int projectionLayer = 1;
-
+    public bool canMatch = true;
+    [Space]
     [SerializeField] private float fov = 60f;
     [SerializeField] private float nearClipPlane = 0.3f;
     [SerializeField] private float farClipPlane = 1000f;
@@ -25,6 +26,8 @@ public class FigmentProjector : MonoBehaviour
     [SerializeField] private AudioSource figmentMatchAudioSource;
     [SerializeField] private float humVolume = 1f;
     [SerializeField] private float humRange = 4f;
+
+
 
     private bool isMatched = false;
     private bool canConfirm = false;
@@ -46,7 +49,7 @@ public class FigmentProjector : MonoBehaviour
 
     void Update()
     {
-        if (isMatched || player == null)
+        if (isMatched || !canMatch || player == null)
         {
             return;
         }
@@ -178,6 +181,11 @@ public class FigmentProjector : MonoBehaviour
 
         player.walkSpeed = originalWalkSpeed;
         onMatch.Invoke();
+    }
+
+    public void SetCanMatch(bool value)
+    {
+        canMatch = value;
     }
 
     void OnDrawGizmos()
