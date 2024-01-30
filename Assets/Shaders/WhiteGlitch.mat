@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlitchMat
+  m_Name: WhiteGlitch
   m_Shader: {fileID: -6465566751694194690, guid: ff49997ee73808048bea4c1be773b7b2,
     type: 3}
   m_ValidKeywords: []
@@ -40,7 +40,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _GlitchColor: {r: 0.07289069, g: 0.28885338, b: 0.735849, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3142820474701722758
