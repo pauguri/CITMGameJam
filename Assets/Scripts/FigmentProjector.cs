@@ -27,10 +27,9 @@ public class FigmentProjector : MonoBehaviour
     [SerializeField] private float humVolume = 1f;
     [SerializeField] private float humRange = 4f;
 
-
-
     private bool isMatched = false;
     private bool canConfirm = false;
+    private bool fadedInConfirmCanvas = false;
     private float originalWalkSpeed;
 
     private PlayerController player;
@@ -65,7 +64,6 @@ public class FigmentProjector : MonoBehaviour
 
         if (humAudioSource.isPlaying)
         {
-            //Debug.Log(angle);
             float remappedDistance = distance.Remap(0f, humRange, 0.7f, 0f) * angle.Remap(0f, rotationTolerance, 1.4f, 1f);
             humAudioSource.volume = Mathf.Lerp(0f, humVolume, remappedDistance);
             humAudioSource.pitch = Mathf.Lerp(0.5f, 1f, remappedDistance);
@@ -82,9 +80,11 @@ public class FigmentProjector : MonoBehaviour
 
             if (positionMatch)
             {
-                if (confirmCanvas != null && (confirmFadeIn == null || !confirmFadeIn.active))
+                if (confirmCanvas != null && (confirmFadeIn == null || !confirmFadeIn.active) && confirmCanvas.alpha < 1f)
                 {
+                    Debug.Log("confirm fade in " + gameObject.name);
                     confirmFadeIn = confirmCanvas.DOFade(1f, 0.5f);
+                    fadedInConfirmCanvas = true;
                 }
                 canConfirm = true;
                 return;
@@ -95,8 +95,10 @@ public class FigmentProjector : MonoBehaviour
             player.walkSpeed = originalWalkSpeed;
         }
 
-        if (confirmCanvas != null && (confirmFadeOut == null || !confirmFadeOut.active))
+        if (confirmCanvas != null && (confirmFadeOut == null || !confirmFadeOut.active) && confirmCanvas.alpha > 0f && fadedInConfirmCanvas)
         {
+            Debug.Log("confirm fade out " + gameObject.name);
+            fadedInConfirmCanvas = false;
             confirmFadeOut = confirmCanvas.DOFade(0f, 0.5f);
         }
         canConfirm = false;

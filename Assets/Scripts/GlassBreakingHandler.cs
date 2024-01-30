@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class GlassBreakingHandler : MonoBehaviour
 {
+    public GameObject glassObject;
     public float time;
-    public GameObject ps;
+    public GameObject particles;
+    public AudioSource audioSource;
 
     public void BreakGlass()
     {
-        Instantiate(ps, transform.position, Quaternion.identity);
-        Destroy(gameObject, time);
+        Instantiate(particles, transform.position, Quaternion.identity);
+        audioSource.Play();
+        Destroy(glassObject, time);
     }
 }
