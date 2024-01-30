@@ -163,7 +163,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -100.904, y: -65.51001, z: 90.096}
+        value: {x: -121.187, y: 188.207, z: -176.905}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -451,7 +451,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -90, y: 0, z: 37.238}
+        value: {x: -74.023, y: 75.282, z: -46.107}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -685,7 +685,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 14.1, y: -18.8, z: -36.4}
+        value: {x: 14.73, y: 4.37, z: -17.96}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -989,7 +989,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 11.991298, y: 5.7986946, z: -25.870087}
+        value: {x: 12.198121, y: 15.691128, z: -26.657564}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -3318,7 +3318,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 14.1
+        value: 14.73
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3337,7 +3337,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -18.8
+        value: 4.37
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3356,7 +3356,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -36.4
+        value: -17.96
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3375,7 +3375,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -100.904
+        value: -121.187
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3394,7 +3394,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -65.51001
+        value: 188.207
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -3413,7 +3413,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 90.096
+        value: -176.905
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -5427,7 +5427,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 11.991298
+        value: 12.198121
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -5446,7 +5446,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 5.7986946
+        value: 15.691128
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -5465,7 +5465,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -25.870087
+        value: -26.657564
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -5484,7 +5484,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -90
+        value: -74.023
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -5503,7 +5503,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
+        value: 75.282
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -5522,7 +5522,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 37.238
+        value: -46.107
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6548,8 +6548,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: ParetBlank/paretBlankA
+    attribute: m_LocalEulerAngles.z
+    path: Terra/terraD
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -6559,7 +6559,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: ParetBlank/paretBlankA
+    path: Terra/terraD
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -6568,8 +6568,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: ParetBlank/paretBlankA
+    attribute: m_LocalEulerAngles.x
+    path: Terra/terraD
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -7088,8 +7088,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Sostre/SostreB
+    attribute: m_LocalEulerAngles.z
+    path: ParetBlank/paretBlankA
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -7099,7 +7099,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Sostre/SostreB
+    path: ParetBlank/paretBlankA
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -7108,8 +7108,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Sostre/SostreB
+    attribute: m_LocalEulerAngles.x
+    path: ParetBlank/paretBlankA
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -7209,7 +7209,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Terra/terraD
+    path: Sostre/SostreB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -7219,7 +7219,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Terra/terraD
+    path: Sostre/SostreB
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -7229,7 +7229,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Terra/terraD
+    path: Sostre/SostreB
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
