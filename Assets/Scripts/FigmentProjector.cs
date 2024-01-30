@@ -16,6 +16,10 @@ public class FigmentProjector : MonoBehaviour
     [Space]
     [SerializeField] private UnityEvent onMatch;
     [SerializeField] private CanvasGroup confirmCanvas;
+
+    [Header("Sound")]
+    [SerializeField] private AudioSource humAudioSource;
+
     private bool isMatched = false;
     private bool canConfirm = false;
     private float originalWalkSpeed;
@@ -27,6 +31,7 @@ public class FigmentProjector : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        humAudioSource.volume = 0f;
         ProjectTexture();
     }
 
@@ -46,6 +51,17 @@ public class FigmentProjector : MonoBehaviour
         {
             player.walkSpeed = focusWalkSpeed;
 
+            if (!humAudioSource.isPlaying)
+            {
+                humAudioSource.volume = 0f;
+                humAudioSource.Play();
+                humAudioSource.DOFade(1f, 1f);
+            }
+            else
+            {
+                //humAudioSource.pitch = Mathf.Lerp(0.5f, 1.5f, player.walkSpeed / focusWalkSpeed);
+            }
+
             bool positionMatch = Vector3.Distance(new Vector3(player.transform.position.x, 0, player.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z)) < positionMatchTolerance;
 
             if (positionMatch)
@@ -61,6 +77,14 @@ public class FigmentProjector : MonoBehaviour
         else
         {
             player.walkSpeed = originalWalkSpeed;
+
+            if (humAudioSource.isPlaying && humAudioSource.volume == 1f)
+            {
+                humAudioSource.DOFade(0f, 1f).OnComplete(() =>
+                {
+                    humAudioSource.Stop();
+                });
+            }
         }
 
         if (confirmCanvas != null && (confirmFadeOut == null || !confirmFadeOut.active))
