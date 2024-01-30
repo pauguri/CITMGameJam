@@ -90,7 +90,7 @@ public class FigmentProjector : MonoBehaviour
                 return;
             }
         }
-        else
+        else if (originalWalkSpeed != 0f)
         {
             player.walkSpeed = originalWalkSpeed;
         }
