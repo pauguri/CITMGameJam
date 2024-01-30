@@ -7446,6 +7446,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6833602793760149070}
+  - component: {fileID: 6833602793760149071}
   m_Layer: 0
   m_Name: Cadira
   m_TagString: Untagged
@@ -7898,6 +7899,18 @@ Transform:
   m_Father: {fileID: 433631272}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 46.129, y: -3.423, z: -192.622}
+--- !u!114 &6833602793760149071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6169374193474376948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17601d0369dd3ab4a89f941a48abc480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6866040811260354485
 GameObject:
   m_ObjectHideFlags: 0
@@ -8631,6 +8644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7218508194380448951}
+  - component: {fileID: 8027273095108320782}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
@@ -8638,6 +8652,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8027273095108320782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027273095108320781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17601d0369dd3ab4a89f941a48abc480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &8030062887200506728
 MeshRenderer:
   m_ObjectHideFlags: 0
