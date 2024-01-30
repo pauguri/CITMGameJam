@@ -5,6 +5,7 @@ using UnityEngine;
 public class DoorSequence : MonoBehaviour
 {
     [SerializeField] private AudioSource doorOpenAudioSource;
+    [SerializeField] private Animator doorAnimator;
 
     private LayerChangeTrigger layerChange;
     private bool sequenceRunning = false;
@@ -29,5 +30,7 @@ public class DoorSequence : MonoBehaviour
     IEnumerator Sequence()
     {
         yield return new WaitForSeconds(2f);
+        doorOpenAudioSource.Play();
+        doorAnimator.SetTrigger("Open");
     }
 }
