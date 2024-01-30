@@ -840,10 +840,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MaterializeFigmentUI
       objectReference: {fileID: 0}
-    - target: {fileID: 2101233227994452863, guid: 24b4cdad6448e9845898630cd69c5774,
+    - target: {fileID: 2101233228115242445, guid: 24b4cdad6448e9845898630cd69c5774,
         type: 3}
-      propertyPath: m_Alpha
-      value: 0
+      propertyPath: m_fontSizeBase
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2101233228115242446, guid: 24b4cdad6448e9845898630cd69c5774,
         type: 3}
@@ -2041,6 +2041,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2124112852702476970, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 2124112853579921240, guid: dea7d3d40b0ab354eae30ef80fbac872,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2121,6 +2126,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7476666291396856781, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.7490196
+      objectReference: {fileID: 0}
     - target: {fileID: 7476666291681211077, guid: dea7d3d40b0ab354eae30ef80fbac872,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2200,6 +2210,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8219299518397620621, guid: dea7d3d40b0ab354eae30ef80fbac872,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8219299519059568665, guid: dea7d3d40b0ab354eae30ef80fbac872,
         type: 3}

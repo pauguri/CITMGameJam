@@ -10,9 +10,8 @@ public class StartSequence : MonoBehaviour
     void Start()
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.AppendInterval(1f);
         sequence.Append(logoCanvasGroup.DOFade(1f, 1f));
-        sequence.AppendInterval(2f);
+        sequence.AppendInterval(1.5f);
         sequence.AppendCallback(() =>
         {
             eyelids.SetTrigger("TriggerClose");
