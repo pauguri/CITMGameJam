@@ -51,8 +51,6 @@ public class FigmentProjector : MonoBehaviour
         {
             //Debug.Log(angle);
             float remappedDistance = distance.Remap(0f, humRange, 0.7f, 0f) * angle.Remap(0f, rotationTolerance, 1.4f, 1f);
-            Debug.Log("dist: " + distance.Remap(0f, humRange, 0.7f, 0f));
-            Debug.Log("angle: " + angle.Remap(0f, rotationTolerance, 1.4f, 1f));
             humAudioSource.volume = Mathf.Lerp(0f, humVolume, remappedDistance);
             humAudioSource.pitch = Mathf.Lerp(0.5f, 1f, remappedDistance);
         }
