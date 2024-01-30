@@ -33,13 +33,15 @@ public class AnimateDirection : MonoBehaviour
             if (transform.localPosition.y < endPosition.y)
             {
                 yield return new WaitForSeconds(timeInterval);
-                Rigidbody.AddForce(direction * step);
+                Rigidbody.AddForce(direction * step, ForceMode.Acceleration);
+                
             }
             if (transform.localPosition.y > startPosition.y)
             {
                 yield return new WaitForSeconds(timeInterval);
                 Rigidbody.AddForce(-direction * step);
             }
+            Rigidbody.velocity = Vector3.zero;
             elapsedTime += Time.deltaTime;
         }
             
