@@ -10,6 +10,7 @@ public class EndScreenSequence : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         exitButton.Disable();
         creditsCanvasGroup.alpha = 0f;
 

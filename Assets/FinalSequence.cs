@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinalSequence : MonoBehaviour
 {
     [SerializeField] private Camera cinematicCamera;
     [SerializeField] private Animator cameraAnimator;
     [SerializeField] private Animator roomAnimator;
+    [SerializeField] private AudioSource audioSource;
     private PlayerController playerController;
 
     private bool sequenceRunning = false;
@@ -35,6 +37,8 @@ public class FinalSequence : MonoBehaviour
         roomAnimator.SetBool("BreakFloor", false);
         roomAnimator.SetBool("BreakRoom", false);
 
+        audioSource.Play();
+
         ShowHide[] showHides = FindObjectsOfType<ShowHide>();
         foreach (ShowHide showHide in showHides)
         {
@@ -49,6 +53,6 @@ public class FinalSequence : MonoBehaviour
             return;
         }
 
-        Application.Quit();
+        SceneManager.LoadScene("EndScreen");
     }
 }
