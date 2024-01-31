@@ -2,17 +2,9 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class FigmentProjector : MonoBehaviour
+public class FakeProjector : MonoBehaviour
 {
-    [SerializeField] private Texture projectionTexture = null;
-    [SerializeField] private GameObject[] projectionReceivers = null;
-    [SerializeField] private int projectionLayer = 1;
     public bool canMatch = true;
-    public bool waitToProject = false;
-    [Space]
-    [SerializeField] private float fov = 60f;
-    [SerializeField] private float nearClipPlane = 0.3f;
-    [SerializeField] private float farClipPlane = 1000f;
     [Space]
     [SerializeField] private float focusWalkSpeed = 2f;
     [SerializeField] private float positionFocusTolerance = 0.5f;
@@ -44,11 +36,8 @@ public class FigmentProjector : MonoBehaviour
         if (PlayerController.instance != null)
         {
             player = PlayerController.instance;
-        }
-
-        if (!waitToProject)
-        {
-            ProjectTexture();
+            originalWalkSpeed = player.walkSpeed;
+            player.OnConfirmClick += TryConfirmFigment;
         }
     }
 
@@ -112,44 +101,6 @@ public class FigmentProjector : MonoBehaviour
         canConfirm = false;
     }
 
-    public void ProjectTexture()
-    {
-        Debug.Log("projecting " + gameObject.name);
-        Matrix4x4 matProj = Matrix4x4.Perspective(fov, 1, nearClipPlane, farClipPlane);
-        Matrix4x4 matView = Matrix4x4.TRS(Vector3.zero, transform.rotation, Vector3.one);
-
-        float x = Vector3.Dot(transform.right, -transform.position);
-        float y = Vector3.Dot(transform.up, -transform.position);
-        float z = Vector3.Dot(transform.forward, -transform.position);
-
-        matView.SetRow(3, new Vector4(x, y, z, 1));
-
-        Matrix4x4 viewProjMatrix = matView * matProj;
-
-        if (projectionReceivers == null || projectionReceivers.Length <= 0)
-        {
-            return;
-        }
-
-        foreach (GameObject receiver in projectionReceivers)
-        {
-            projectionTexture.wrapMode = TextureWrapMode.Clamp;
-            MeshRenderer renderer = receiver.GetComponent<MeshRenderer>();
-            if (renderer == null)
-            {
-                continue;
-            }
-            Debug.Log(gameObject.name + " projecting to " + receiver.name + " in layer " + projectionLayer);
-            renderer.sharedMaterial.SetTexture("_ProjectedTex" + projectionLayer, projectionTexture);
-            renderer.sharedMaterial.SetVector("_ViewDirection" + projectionLayer, transform.forward);
-            renderer.sharedMaterial.SetMatrix("_ProjectionMatrix" + projectionLayer, viewProjMatrix);
-            renderer.sharedMaterial.SetFloat("_ShowProjection" + projectionLayer, 1f);
-        }
-
-        originalWalkSpeed = player.walkSpeed;
-        player.OnConfirmClick += TryConfirmFigment;
-    }
-
     void TryConfirmFigment()
     {
         if (!canConfirm)
@@ -180,10 +131,6 @@ public class FigmentProjector : MonoBehaviour
         camFovSequence.Append(DOTween.To(() => cam.fieldOfView, x => cam.fieldOfView = x, originalFov, 0.5f));
         camFovSequence.Play();
 
-        foreach (GameObject receiver in projectionReceivers)
-        {
-            receiver.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_ShowProjection" + projectionLayer, 0f);
-        }
         if (confirmCanvas != null)
         {
             confirmCanvas.DOFade(0f, 0.5f);
