@@ -35,7 +35,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GlitchStrength: 1
+    - _GlitchStrength: 5
+    - _MaxNoise: 0.5
+    - _MinNoise: -0.5
     - _NoiseStrength: 50
     - _QueueControl: 0
     - _QueueOffset: 0
