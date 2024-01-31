@@ -17,8 +17,9 @@ public class FallTrigger : MonoBehaviour, ITriggerable
 
     IEnumerator Teleport(PlayerController pc)
     {
-        yield return null;
+        yield return new WaitForSeconds(1f);
         pc.gameObject.transform.position = teleportTo;
+        yield return new WaitForSeconds(1f);
         pc.enabled = true;
     }
 }
