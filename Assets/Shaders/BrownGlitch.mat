@@ -94,10 +94,10 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _MaxNoise: 5
+    - _MaxNoise: 1
     - _Metallic: 0
-    - _MinNoise: -5
-    - _NoiseStrength: 10
+    - _MinNoise: -1
+    - _NoiseStrength: 5
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
