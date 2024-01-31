@@ -7,6 +7,7 @@ public class FinalSequence : MonoBehaviour
     [SerializeField] private Animator cameraAnimator;
     [SerializeField] private Animator roomAnimator;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource music;
     private PlayerController playerController;
 
     private bool sequenceRunning = false;
@@ -37,6 +38,7 @@ public class FinalSequence : MonoBehaviour
         roomAnimator.SetBool("BreakFloor", false);
         roomAnimator.SetBool("BreakRoom", false);
 
+        music.Stop();
         audioSource.Play();
 
         ShowHide[] showHides = FindObjectsOfType<ShowHide>();

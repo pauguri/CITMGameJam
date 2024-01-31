@@ -7,6 +7,9 @@ public class PencilSequence : MonoBehaviour
     [SerializeField] private Animator pencilAnimator;
     [SerializeField] private AudioSource pencilShootAudio;
     [SerializeField] private GlassBreakingHandler glassBreakingHandler;
+    [Space]
+    [SerializeField] private AudioSource ambient;
+    [SerializeField] private AudioSource music;
 
     private LayerChangeTrigger layerChange;
     private bool sequenceRunning = false;
@@ -40,5 +43,7 @@ public class PencilSequence : MonoBehaviour
     public void BreakGlass()
     {
         glassBreakingHandler.BreakGlass();
+        ambient.Stop();
+        music.Play();
     }
 }
