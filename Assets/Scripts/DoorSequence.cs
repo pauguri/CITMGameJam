@@ -46,8 +46,7 @@ public class DoorSequence : MonoBehaviour, ITriggerable
 
     public void EnterTrigger()
     {
-        Debug.Log("Enter");
-        if (TransitionManager.instance != null)
+        if (TransitionManager.instance != null && sequenceRunning)
         {
             TransitionManager.instance.TransitionToSceneGlitch("Level2Scene");
         }
