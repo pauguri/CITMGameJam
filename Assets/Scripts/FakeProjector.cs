@@ -55,7 +55,6 @@ public class FakeProjector : MonoBehaviour
         }
 
         // vertical distance check
-        Debug.Log(gameObject.name + ": " + cam.transform.position.x + " and " + transform.position.x);
         if (Mathf.Abs(cam.transform.position.y - transform.position.y) > 2f)
         {
             return;
