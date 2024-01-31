@@ -4,6 +4,7 @@ using UnityEngine;
 public class BreakFloorSequence : MonoBehaviour, ITriggerable
 {
     [SerializeField] private Animator roomAnimator;
+    [SerializeField] private AudioSource audioSource;
     private bool isTriggered = false;
 
     public void EnterTrigger()
@@ -20,5 +21,6 @@ public class BreakFloorSequence : MonoBehaviour, ITriggerable
     {
         yield return new WaitForSeconds(1f);
         roomAnimator.SetBool("BreakFloor", true);
+        audioSource.Play();
     }
 }
