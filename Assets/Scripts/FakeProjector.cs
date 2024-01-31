@@ -54,6 +54,13 @@ public class FakeProjector : MonoBehaviour
             return;
         }
 
+        // vertical distance check
+        Debug.Log(gameObject.name + ": " + cam.transform.position.x + " and " + transform.position.x);
+        if (Mathf.Abs(cam.transform.position.y - transform.position.y) > 2f)
+        {
+            return;
+        }
+
         float distance = Vector3.Distance(new Vector3(player.transform.position.x, 0, player.transform.position.z), new Vector3(transform.position.x, 0, transform.position.z));
         float angle = Vector3.Angle(cam.transform.forward, transform.forward);
 
