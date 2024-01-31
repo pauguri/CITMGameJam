@@ -1,4 +1,4 @@
-using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public class FallTrigger : MonoBehaviour, ITriggerable
@@ -9,10 +9,16 @@ public class FallTrigger : MonoBehaviour, ITriggerable
     {
         if (PlayerController.instance != null)
         {
-            PlayerController.instance.toggleInput = false;
-            PlayerController.instance.transform.DOMove(teleportTo, 0f).OnComplete(() =>
-                PlayerController.instance.toggleInput = true
-            );
+            PlayerController pc = PlayerController.instance;
+            pc.enabled = false;
+            StartCoroutine(Teleport(pc));
         }
+    }
+
+    IEnumerator Teleport(PlayerController pc)
+    {
+        yield return null;
+        pc.gameObject.transform.position = teleportTo;
+        pc.enabled = true;
     }
 }
