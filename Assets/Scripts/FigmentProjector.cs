@@ -8,6 +8,7 @@ public class FigmentProjector : MonoBehaviour
     [SerializeField] private GameObject[] projectionReceivers = null;
     [SerializeField] private int projectionLayer = 1;
     public bool canMatch = true;
+    public bool waitToProject = false;
     [Space]
     [SerializeField] private float fov = 60f;
     [SerializeField] private float nearClipPlane = 0.3f;
@@ -43,7 +44,11 @@ public class FigmentProjector : MonoBehaviour
         {
             player = PlayerController.instance;
         }
-        ProjectTexture();
+
+        if (!waitToProject)
+        {
+            ProjectTexture();
+        }
     }
 
     void Update()
@@ -104,7 +109,7 @@ public class FigmentProjector : MonoBehaviour
         canConfirm = false;
     }
 
-    void ProjectTexture()
+    public void ProjectTexture()
     {
         Matrix4x4 matProj = Matrix4x4.Perspective(fov, 1, nearClipPlane, farClipPlane);
         Matrix4x4 matView = Matrix4x4.TRS(Vector3.zero, transform.rotation, Vector3.one);

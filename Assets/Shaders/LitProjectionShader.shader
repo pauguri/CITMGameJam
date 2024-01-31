@@ -150,29 +150,29 @@ Shader "Custom/LitProjection"
 
 // PROJECTION PROPERTIES
             float _ShowProjection1;
-            uniform sampler2D _ProjectedTex1;
-            uniform float3 _ViewDirection1;
-            uniform float4x4 _ProjectionMatrix1;
+            sampler2D _ProjectedTex1;
+            float3 _ViewDirection1;
+            float4x4 _ProjectionMatrix1;
 
             float _ShowProjection2;
-            uniform sampler2D _ProjectedTex2;
-            uniform float3 _ViewDirection2;
-            uniform float4x4 _ProjectionMatrix2;
+            sampler2D _ProjectedTex2;
+            float3 _ViewDirection2;
+            float4x4 _ProjectionMatrix2;
 
             float _ShowProjection3;
-            uniform sampler2D _ProjectedTex3;
-			uniform float3 _ViewDirection3;
-            uniform float4x4 _ProjectionMatrix3;
+            sampler2D _ProjectedTex3;
+			float3 _ViewDirection3;
+            float4x4 _ProjectionMatrix3;
 
             float _ShowProjection4;
-            uniform sampler2D _ProjectedTex4;
-			uniform float3 _ViewDirection4;
-            uniform float4x4 _ProjectionMatrix4;
+            sampler2D _ProjectedTex4;
+			float3 _ViewDirection4;
+            float4x4 _ProjectionMatrix4;
 
             float _ShowProjection5;
-            uniform sampler2D _ProjectedTex5;
-			uniform float3 _ViewDirection5;
-            uniform float4x4 _ProjectionMatrix5;
+            sampler2D _ProjectedTex5;
+			float3 _ViewDirection5;
+            float4x4 _ProjectionMatrix5;
 
             #ifndef UNIVERSAL_FORWARD_LIT_PASS_INCLUDED
             #define UNIVERSAL_FORWARD_LIT_PASS_INCLUDED
